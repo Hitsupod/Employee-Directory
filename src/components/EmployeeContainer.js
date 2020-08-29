@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import API from "../utils/API";
 // import Header from "./Header";
 import Table from "./Container"
-import Header from "./Header";
+
 
 
 class EmployeeContainer extends Component {
@@ -34,20 +34,26 @@ class EmployeeContainer extends Component {
 
     render() {
       return (
-        <div className="row">
-          <table className="table">
+        <div className="container">
+            <div className="row" >
+              <h1>Employee Director</h1>
+            </div>
+          
+          <div className="row">
+            <table className="table">
 
-            {[...this.state.users].map((item) => 
-            <Table 
-            id={item.id}
-            firstName={item.firstName}
-            lastName={item.lastName}
-            address={item.address}
-            email={item.email}
-            phone={item.phone}
-            />
-            )}
-          </table>
+              {[...this.state.users].map((item) => 
+              <Table 
+              id={item.id}
+              firstName={item.firstName}
+              lastName={item.lastName}
+              address={item.address}
+              email={item.email}
+              phone={item.phone}
+              />
+              )}
+            </table>
+          </div>
         </div>
       );
     }
