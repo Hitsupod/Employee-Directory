@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
+import API from "../utils/API";
+// import Header from "./Header";
+import Table from "./Container"
 import Header from "./Header";
-import Container from "./Container"
 
 
 class EmployeeContainer extends Component {
     state = {
-      users: []
+      users: [],
+      filter: "firstName",
     };
   
     // When this component mounts, search for the movie "The Matrix"
@@ -14,13 +16,16 @@ class EmployeeContainer extends Component {
         API.search()
         .then(({data:{results}}) => {
           console.log(results)
-          let users = results.map(person => {
+          let users = results.map((person, index) => {
             return {
               id: person.id.vaule, 
               name: person.name.first + person.name.last,
+              firstName: person.name.first,
+              lastName:person.name.last,
               address: person.location.city,
               email: person.email,
-              phone: person.phone
+              phone: person.phone,
+              key: index
             }
           })
           this.setState({ users })
@@ -28,6 +33,26 @@ class EmployeeContainer extends Component {
     };
 
     render() {
+      return (
+        <div className="row">
+          <table className="table">
+
+            {[...this.state.users].map((item) => 
+            <Table 
+            id={item.id}
+            firstName={item.firstName}
+            lastName={item.lastName}
+            address={item.address}
+            email={item.email}
+            phone={item.phone}
+            />
+            )}
+          </table>
+        </div>
+      );
+    }
+
+    /*render() {
         const employees = [
             {
                 Header: "ID",
@@ -53,13 +78,14 @@ class EmployeeContainer extends Component {
             }
         ]
         return(
+            <Header />
             <ReactTable
             employees = {employees}
-            data = {this.state.users}
+            data = {...this.state.users}
             ></ReactTable>
         )
       }
-
+*/
 // End   
 }
 
